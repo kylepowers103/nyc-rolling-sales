@@ -16,7 +16,7 @@ library(tidyverse)
 library(knitr)
 library(utilsMBC)
 
-dat <- read_csv("nyc-rolling-sales.csv",
+dat <- read_csv("../data/nyc-rolling-sales.csv",
                 na = c("", "NA", "-")) %>% 
   make_names() %>% 
   rename(id = X1)
@@ -216,7 +216,7 @@ library(gpclib)
 gpclibPermit() 
 
 
-nyc_zip_shape <- readOGR("ZIP_CODE_040114/", layer = "ZIP_CODE_040114") %>% 
+nyc_zip_shape <- readOGR("../data/ZIP_CODE_040114/", layer = "ZIP_CODE_040114") %>% 
   spTransform(CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"))
 
 nyc_zip_shape@data$id <- as.character(1:nrow(nyc_zip_shape@data))
@@ -225,9 +225,10 @@ nyc_zip_tibble <- fortify(nyc_zip_shape, region = "id") %>%
   as_tibble() %>% 
   left_join(nyc_zip_shape@data)
 
-nyc_sales <- read_rds("nyc_sales.rds") %>% 
-  rename(id_sale = id)
-
+nyc_sales <- read_rds("../out/nyc_sales.rds") %>% 
+rename(id_sale = id) %>% 
+mutate(long = as.numeric(long),
+       lat = as.numeric(lat))
 
 nyc_zip_tibble %>% 
   ggplot()+
@@ -236,20 +237,6 @@ nyc_zip_tibble %>%
   coord_fixed() +
   theme_bw()
 
-
-nyc_zip_shape <- readOGR("ZIP_CODE_040114/", layer = "ZIP_CODE_040114") %>% 
-  spTransform(CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"))
-
-nyc_zip_shape@data$id <- as.character(1:nrow(nyc_zip_shape@data))
-
-nyc_zip_tibble <- fortify(nyc_zip_shape, region = "id") %>% 
-  as_tibble() %>% 
-  left_join(nyc_zip_shape@data)
-
-nyc_sales <- read_rds("nyc_sales.rds") %>% 
-  rename(id_sale = id) %>% 
-  mutate(long = as.numeric(long),
-         lat = as.numeric(lat))
 
 
 nyc_zip_tibble %>% 
