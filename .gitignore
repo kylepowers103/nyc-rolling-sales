@@ -1,1 +1,3 @@
 *.Rhistory
+reports/*.html
+reports/*.pdf
