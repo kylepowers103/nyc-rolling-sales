@@ -138,7 +138,7 @@ data_chunks <- tibble(
   chunk = rep_chunks
 )
 
-chunk_id <- 7
+chunk_id <- 2
 
 address_data <- nyc_data %>% 
   select(Complete_address, ZIP_CODE, id) %>% 
@@ -158,7 +158,7 @@ address_data <- nyc_data %>%
 # Chunk 5: Compu Farid # Murió
 # Chunk 4: Compu Saúl
 # Chunk 3: Compu Tania
-# Chunk 2:
+# Chunk 2: HP
 # Chunk 1:
 
 i = 1
@@ -184,6 +184,6 @@ coords <- apply(address_data, 1, function(x) {
 
 saveRDS(coords, 
         file = paste0(
-          "coords_", chunk_id, ".rds" 
+          "../out/coords_", chunk_id, ".rds" 
         ))
 
