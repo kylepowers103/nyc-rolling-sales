@@ -15,7 +15,22 @@ nyc_double_check <- nyc_sales %>%
       is.na(loc_type)
   ) %>% 
   mutate(Street = stringi::stri_split(ADDRESS, regex = "^[A-Za-z0-9\\-]+ ", simplify = T)[,2],
-         Street_Number = stringi::stri_extract_first(ADDRESS, regex = "^[A-Za-z0-9\\-]+", simplyfy = T))
+         Street_Number = stringi::stri_extract_first(ADDRESS, regex = "^[A-Za-z0-9\\-]+", simplyfy = T),
+         BOROUGH_NAME = 
+           ifelse(BOROUGH == 1, "Manhattan", ifelse(
+             BOROUGH == 2, "Bronx", ifelse(
+               BOROUGH == 3, "Brooklyn", ifelse(
+                 BOROUGH == 4, "Queens", "Staten Island")))
+           ),
+         Complete_address = paste0(
+           ADDRESS, 
+           ", ", 
+           NEIGHBORHOOD,
+           ", ",
+           BOROUGH_NAME, 
+           ", New York, ", 
+           ZIP_CODE, 
+           ", USA"))
 
 
   
