@@ -9,7 +9,7 @@
 read_csv("../data/nyc-rolling-sales.csv",
                       na = c("", "NA", "-")) %>% 
   make_names() %>% 
-  mutate(id = paste(X1, BOROUGH, sep = "_")) %>% 
+  mutate(id_sale = paste(X1, BOROUGH, sep = "_")) %>% 
   filter(SALE_PRICE > 7000, 
          !is.na(SALE_PRICE)) %>% 
   filter(!is.na(LAND_SQUARE_FEET),
