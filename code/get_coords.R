@@ -89,7 +89,7 @@ if(!file_exists) {
 
 # Cleans the data, filtering empty sales or too low sale prices; also keeps registers that have Zip Code and size info.
 
-nyc_data <- read_csv(file_name,
+nyc_data <- read_csv(paste0(ny_path, file_name),
                      na = c("", "NA", "-")) %>% 
   make_names() %>% 
   mutate(id = paste(X1, BOROUGH, sep = "_")) %>% 
