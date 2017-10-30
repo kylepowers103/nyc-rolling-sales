@@ -3,3 +3,5 @@ reports/*.html
 reports/*.pdf
 data/*.zip
 code/get_coords_gitignore.py
+code/app_id_nyc.csv
+
