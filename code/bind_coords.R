@@ -59,3 +59,24 @@ nyc_sales <- 	coords_1 %>%
   inner_join(nyc_data_orig)
 
 saveRDS(nyc_sales, "../out/nyc_sales.rds")
+
+nyc_sales %>% 
+  mutate(Street = stringi::stri_split(ADDRESS, regex = "^[A-Za-z0-9\\-]+ ", simplify = T)[,2],
+         Street_Number = stringi::stri_extract_first(ADDRESS, regex = "^[A-Za-z0-9\\-]+", simplyfy = T),
+         BOROUGH_NAME = 
+           ifelse(BOROUGH == 1, "Manhattan", ifelse(
+             BOROUGH == 2, "Bronx", ifelse(
+               BOROUGH == 3, "Brooklyn", ifelse(
+                 BOROUGH == 4, "Queens", "Staten Island")))
+           ),
+         Complete_address = paste0(
+           ADDRESS, 
+           ", ", 
+           NEIGHBORHOOD,
+           ", ",
+           BOROUGH_NAME, 
+           ", New York, ", 
+           ZIP_CODE, 
+           ", USA")) %>% 
+  write_csv(., "../out/nyc_sales.csv")
+
