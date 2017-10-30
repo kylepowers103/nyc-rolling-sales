@@ -26,6 +26,7 @@ nyc_zip_tibble %>%
   coord_fixed() +
   theme_bw()
 
+# There's a problem with addresses in zip code boundaries: the geocoder gives the rooftop location, not the street location, which may be in different zip codes
 iter = 0
 lista <- lapply(unique(nyc_zip_tibble$id), function(i){
   iter <<- iter + 1
@@ -46,6 +47,17 @@ lista <- lapply(unique(nyc_zip_tibble$id), function(i){
   return(df_out)
 })
 
+
+# Example showing the zip code boundary problem corresponding to sale id 7941_5 and address
+# 54 NORTH AVENUE, WESTERLEIGH, Staten Island, New York, 10302, USA
+nyc_zip_tibble %>% filter(ZIPCODE == 10302) %>% 
+  ggplot() +
+  geom_polygon(aes(long, lat, group = group), fill = 'white', color = 'black') +
+  geom_point(data = tibble(long = -74.13627,
+                           lat = 40.62313),
+             aes(long, lat))
+
+
 nyc_sales_2 <- lista %>% 
   bind_rows() %>% 
   right_join(nyc_sales)
@@ -54,4 +66,11 @@ nyc_sales_2 %>%
   filter(ZIPCODE_checked != ZIP_CODE)
 
 
+nyc_sales_2 %>% 
+  filter(ZIPCODE_checked != ZIP_CODE,
+         loc_type == "RANGE_INTERPOLATED")
 
+  
+  
+  
+  
