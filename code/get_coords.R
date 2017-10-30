@@ -76,13 +76,14 @@ getGeoCode <- function(address, verbose = FALSE){
 
 # Tests if the sales data file exists in the same working directory; and if it doesn't, it downloads it from my github.
 
-files <- list.files()
-file_name <- "../data/nyc-rolling-sales.csv"
+ny_path <- "../data/"
+files <- list.files(path = ny_path)
+file_name <- "nyc-rolling-sales.csv"
 file_exists <- (sum(files == file_name) == 1)
 if(!file_exists) {
   cat("FILE NOT FOUND. \nDownloading from github...")
   download.file("https://raw.githubusercontent.com/mariobecerra/Data/master/nyc-rolling-sales.csv",
-                file_name)
+                paste0(ny_path, file_name))
   cat("File Downloaded.\n\n")
 }
 
