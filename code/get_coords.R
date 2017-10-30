@@ -155,11 +155,11 @@ address_data <- nyc_data %>%
 # Chunk 8: compu Farid ITAM elmario@148.205.36.110 mario1234
 # Chunk 7: HP
 # Chunk 6: Compu ITAM Mario
-# Chunk 5: Compu Farid # Murió
+# Chunk 5: Compu Farid # Murió y lo volví a correr. Hay muchos con query limit.
 # Chunk 4: Compu Saúl
 # Chunk 3: Compu Tania
 # Chunk 2: HP
-# Chunk 1:
+# Chunk 1: Compu ITAM Mario
 
 i = 1
 coords <- apply(address_data, 1, function(x) {
