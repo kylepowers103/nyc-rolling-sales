@@ -267,6 +267,22 @@ nyc_zip_tibble %>%
 
 
 
+nyc_zip_tibble %>% 
+  ggplot()+
+  geom_polygon(aes(x = long, y = lat, group = group),
+            fill = 'white', color = 'black', size = 0.1) +
+  geom_point(data = nyc_sales %>% 
+               filter(google_status == "OK",
+                      loc_type != "GEOMETRIC CENTER"),
+             aes(x = long, y = lat, color = log(SALE_PRICE)),
+             size = 0.4,
+             alpha = 0.8) +
+  coord_fixed() +
+  scale_colour_gradient(low = "white", high = "black") +
+  theme_bw()
+
+
+
 
 
 
