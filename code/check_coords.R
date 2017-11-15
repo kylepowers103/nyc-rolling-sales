@@ -18,7 +18,7 @@ nyc_zip_tibble <- fortify(nyc_zip_shape, region = "id") %>%
 nyc_sales <- read_rds("../out/nyc_sales.rds") %>% 
   rename(id_sale = id)
 
-nyc_coords_api <- read_csv("../out/coods_nyc_api.csv")
+nyc_coords_api <- read_csv("../out/coords_nyc_api.csv")
 
 nyc_zip_tibble %>% 
   ggplot()+
