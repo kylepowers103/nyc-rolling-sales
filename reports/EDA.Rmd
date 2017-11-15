@@ -180,6 +180,31 @@ dat_clean2 %>%
              size = 0.4, alpha = 0.5)
 
 dat_clean2 %>% 
+  group_by(BUILDING_CLASS_CATEGORY) %>% 
+  mutate(num = length(BUILDING_CLASS_CATEGORY)) %>% 
+  filter(num > 300, 
+         BUILDING_CLASS_CATEGORY != "22 STORE BUILDINGS") %>% 
+  ggplot() +
+  geom_point(aes(log(GROSS_SQUARE_FEET), log(SALE_PRICE), color = BUILDING_CLASS_CATEGORY), 
+             alpha = 0.5) 
+
+dat_clean2 %>% 
+  group_by(BUILDING_CLASS_CATEGORY) %>% 
+  mutate(num = length(BUILDING_CLASS_CATEGORY)) %>% 
+  filter(num > 300, 
+         BUILDING_CLASS_CATEGORY != "22 STORE BUILDINGS") %>% 
+  ggplot() +
+  geom_boxplot(aes(BUILDING_CLASS_CATEGORY, log(SALE_PRICE)))
+
+dat_clean2 %>% 
+  group_by(BUILDING_CLASS_CATEGORY) %>% 
+  mutate(num = length(BUILDING_CLASS_CATEGORY)) %>% 
+  filter(num > 300, 
+         BUILDING_CLASS_CATEGORY != "22 STORE BUILDINGS") %>% 
+  ggplot() +
+  geom_boxplot(aes(BUILDING_CLASS_CATEGORY, log(GROSS_SQUARE_FEET)))
+
+dat_clean2 %>% 
   filter(TAX_CLASS_AT_TIME_OF_SALE == 1 |
            TAX_CLASS_AT_TIME_OF_SALE == 2) %>% 
   ggplot() +
